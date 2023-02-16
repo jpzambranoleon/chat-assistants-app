@@ -1,4 +1,4 @@
-import { Send } from "@mui/icons-material";
+import { Assistant, Send } from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -17,6 +17,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { blue } from "@mui/material/colors";
 import { Stack } from "@mui/system";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
@@ -67,13 +68,9 @@ export default function Profile() {
   const [assistants, setAssistants] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(assistants);
-
   const tabNameToIndex = {
-    0: "posts",
-    1: "assistants",
-    posts: 0,
-    assistants: 1,
+    0: "assistants",
+    assistants: 0,
   };
 
   const [selectedTab, setSelectedTab] = useState(tabNameToIndex[page]);
@@ -143,6 +140,7 @@ export default function Profile() {
                 {user.username}
               </Typography>
               <Button
+                size="small"
                 variant="contained"
                 component={Link}
                 to="/account"
@@ -168,11 +166,6 @@ export default function Profile() {
         <Box sx={{ mt: 3, borderBottom: 1, borderColor: "divider" }}>
           <Tabs value={selectedTab} onChange={handleChange} centered>
             <Tab
-              label="Posts"
-              component={Link}
-              to={`/profile/${username}/posts`}
-            />
-            <Tab
               label="Assistants"
               component={Link}
               to={`/profile/${username}/assistants`}
@@ -180,28 +173,55 @@ export default function Profile() {
           </Tabs>
         </Box>
         <TabPanel value={selectedTab} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={selectedTab} index={1}>
           {loading ? (
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <CircularProgress />
             </Box>
           ) : (
-            <Stack direction="column" sx={{ flexWrap: "wrap", gap: 1 }}>
-              {assistants.map((a) => (
-                <div>
-                  <AICard
-                    modelId={a._id}
-                    name={a.name}
-                    avatar={a.avatar}
-                    model={a.model}
-                    strengths={a.strengths}
-                    prompt={a.prompt}
-                  />
-                </div>
-              ))}
-            </Stack>
+            <>
+              {assistants.length === 0 ? (
+                <Container maxWidth="xs">
+                  <Avatar
+                    sx={{
+                      height: 60,
+                      width: 60,
+                      margin: "auto",
+                      bgcolor: blue[500],
+                    }}
+                  >
+                    <Assistant />
+                  </Avatar>
+                  <Typography paragraph textAlign="center" mt={2}>
+                    You don't have any assistants created at the moment
+                  </Typography>
+                  <Box display="flex" justifyContent="center">
+                    <Button
+                      size="small"
+                      variant="contained"
+                      component={Link}
+                      to="/assistant/create"
+                    >
+                      Create assistant
+                    </Button>
+                  </Box>
+                </Container>
+              ) : (
+                <Stack direction="column" sx={{ flexWrap: "wrap", gap: 1 }}>
+                  {assistants.map((a) => (
+                    <div>
+                      <AICard
+                        modelId={a._id}
+                        name={a.name}
+                        avatar={a.avatar}
+                        model={a.model}
+                        strengths={a.strengths}
+                        prompt={a.prompt}
+                      />
+                    </div>
+                  ))}
+                </Stack>
+              )}
+            </>
           )}
         </TabPanel>
       </Container>

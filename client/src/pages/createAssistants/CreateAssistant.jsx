@@ -8,6 +8,7 @@ import {
   StepContent,
   StepLabel,
   Stepper,
+  Toolbar,
   Typography,
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
@@ -234,6 +235,7 @@ export default function CreateAssistant() {
         overflow: "auto",
       }}
     >
+      <Toolbar />
       <Container maxWidth="md">
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((step, index) => (
