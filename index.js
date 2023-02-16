@@ -39,7 +39,9 @@ app.use((err, req, res, next) => {
     message,
   });
 });
-/*
+
+app.use(express.static(path.join(__dirname, "./client/build")));
+
 app.get("*", (req, res) => {
   res.sendFile(
     path.join(__dirname, "./client/build/index.html"),
@@ -47,7 +49,7 @@ app.get("*", (req, res) => {
       res.status(500).send(err);
     }
   );
-}); */
+});
 
 app.listen(PORT, () => {
   console.log(`Backend server is running on ${PORT}`);
