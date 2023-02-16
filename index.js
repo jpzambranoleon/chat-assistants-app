@@ -4,7 +4,7 @@ const MongooseConnection = require("./utility/mongoose.connection");
 const path = require("path");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
+//const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
@@ -15,7 +15,7 @@ const app = express();
 MongooseConnection();
 
 // Middlewares
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());

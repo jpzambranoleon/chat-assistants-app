@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
     );
 
     await sendEmail(
-      req.body.firstName,
+      req.body.name,
       req.body.email,
       req.body.username,
       emailToken

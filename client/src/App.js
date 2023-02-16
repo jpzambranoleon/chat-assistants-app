@@ -1,6 +1,20 @@
 import logo from "./logo.svg";
 import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import "./App.css";
+import { useSelector } from "react-redux";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import CreateAssistant from "./pages/createAssistants/CreateAssistant";
+import Profile from "./pages/profile/Profile";
+import Home from "./pages/home/Home";
+import Account from "./pages/account/Account";
+import Chats from "./pages/Chats/Chats";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import SendEmail from "./pages/auth/SendEmail";
+import VerifyEmail from "./pages/auth/VerifyEmail";
+import MuiDrawer from "./components/MuiDrawer";
+//import "./App.css";
+
+const mdTheme = createTheme();
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
