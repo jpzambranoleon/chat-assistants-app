@@ -145,7 +145,7 @@ export default function Profile() {
           <Grid item xs={4}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography component="h1" variant="h5">
-                {user.username}
+                {loadingUser ? <Skeleton width={80} /> : user.username}
               </Typography>
               <Button
                 size="small"
@@ -159,14 +159,26 @@ export default function Profile() {
             </Box>
             <Box sx={{ mt: 2 }}>
               <Typography variant="body1" fontSize="15px">
-                <b>{user.name}</b>
+                {loadingUser ? (
+                  <Skeleton width={210} style={{ marginBottom: 6 }} />
+                ) : (
+                  <b>{user.name}</b>
+                )}
               </Typography>
               <Typography
                 variant="body2"
                 fontSize="15px"
                 sx={{ whiteSpace: "pre-line" }}
               >
-                {user.bio}
+                {loadingUser ? (
+                  <>
+                    <Skeleton width={210} />
+                    <Skeleton width={210} />
+                    <Skeleton width={150} />
+                  </>
+                ) : (
+                  user.bio
+                )}
               </Typography>
             </Box>
           </Grid>
