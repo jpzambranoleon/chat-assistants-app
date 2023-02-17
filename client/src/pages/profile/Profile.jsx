@@ -12,6 +12,7 @@ import {
   LinearProgress,
   List,
   Paper,
+  Skeleton,
   Tab,
   Tabs,
   Toolbar,
@@ -66,7 +67,8 @@ export default function Profile() {
   // const { assistants } = useSelector((state) => state.assistants);
   const [user, setUser] = useState({});
   const [assistants, setAssistants] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingAssistants, setLoadingAssistants] = useState(true);
+  const [loadingUser, setLoadingUser] = useState(true);
 
   const tabNameToIndex = {
     0: "assistants",
@@ -80,15 +82,17 @@ export default function Profile() {
   };
 
   useEffect(() => {
+    setLoadingUser(true);
     const fetchUser = async () => {
       const res = await userRequest.get(`/users?username=${username}`);
       setUser(res.data);
+      setLoadingUser(false);
     };
     fetchUser();
   }, [username]);
 
   useEffect(() => {
-    setLoading(true);
+    setLoadingAssistants(true);
     const getAssistants = async () => {
       try {
         const res = await userRequest.get(
@@ -96,7 +100,7 @@ export default function Profile() {
         );
         console.log(res.data);
         setAssistants(res.data);
-        setLoading(false);
+        setLoadingAssistants(false);
       } catch (err) {
         console.log(err);
       }
@@ -128,10 +132,14 @@ export default function Profile() {
         <Grid container>
           <Grid item xs={4}>
             <Box display="flex" justifyContent="center" alignItems="center">
-              <Avatar
-                src={!user.profilePic ? "/broken-image.jpg" : user.profilePic}
-                sx={{ height: 140, width: 140 }}
-              />
+              {loadingUser ? (
+                <Skeleton variant="circular" sx={{ height: 140, width: 140 }} />
+              ) : (
+                <Avatar
+                  src={!user.profilePic ? "/broken-image.jpg" : user.profilePic}
+                  sx={{ height: 140, width: 140 }}
+                />
+              )}
             </Box>
           </Grid>
           <Grid item xs={4}>
@@ -173,7 +181,7 @@ export default function Profile() {
           </Tabs>
         </Box>
         <TabPanel value={selectedTab} index={0}>
-          {loading ? (
+          {loadingAssistants ? (
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <CircularProgress />
             </Box>
