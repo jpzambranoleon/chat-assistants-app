@@ -23,12 +23,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DrawerItems from "./DrawerItems";
 import { userRequest } from "../requestMethods";
 import { Link } from "react-router-dom";
 import { persistor } from "../redux/store";
+import { logout } from "../redux/userSlice";
 
 const drawerWidth = 240;
 
@@ -78,6 +79,7 @@ const CustomDrawer = styled(Drawer, {
 
 const MuiDrawer = ({ clearChat }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [assistants, setAssistants] = useState([]);
@@ -106,10 +108,8 @@ const MuiDrawer = ({ clearChat }) => {
   };
 
   const handleLogout = () => {
-    persistor.pause();
-    persistor.flush().then(() => {
-      return persistor.purge();
-    });
+    dispatch(logout());
+    localStorage.removeItem("persist:root");
     navigate("/login");
     window.location.reload();
   };

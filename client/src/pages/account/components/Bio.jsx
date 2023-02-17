@@ -96,10 +96,14 @@ const Bio = () => {
 
             dispatch(updateStart());
             userRequest
-              .put(`/users/update/${currentUser._id}`, {
-                userId: currentUser._id,
-                data: formData,
-              })
+              .put(
+                `/users/update/${currentUser._id}`,
+                {
+                  userId: currentUser._id,
+                  data: formData,
+                },
+                { headers: { token: `Bearer ${currentUser.accessToken}` } }
+              )
               .then((res) => {
                 setStatus({
                   open: true,
@@ -121,10 +125,14 @@ const Bio = () => {
     } else if (!file) {
       dispatch(updateStart());
       userRequest
-        .put(`/users/update/${currentUser._id}`, {
-          userId: currentUser._id,
-          data: formData,
-        })
+        .put(
+          `/users/update/${currentUser._id}`,
+          {
+            userId: currentUser._id,
+            data: formData,
+          },
+          { headers: { token: `Bearer ${currentUser.accessToken}` } }
+        )
         .then((res) => {
           setStatus({
             open: true,

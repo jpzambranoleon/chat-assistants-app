@@ -1,12 +1,4 @@
 import {
-  Bookmark,
-  EmojiEmotions,
-  Favorite,
-  MoreVert,
-  Send,
-  Share,
-} from "@mui/icons-material";
-import {
   Box,
   Container,
   Grid,
