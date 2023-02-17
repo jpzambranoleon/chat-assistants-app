@@ -110,6 +110,7 @@ const MuiDrawer = ({ clearChat }) => {
     persistor.flush().then(() => {
       return persistor.purge();
     });
+    navigate("/login");
     window.location.reload();
   };
 
