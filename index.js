@@ -20,7 +20,9 @@ app.use(cors());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 
-const PORT = process.env.PORT || 8000;
+// const PORT = process.env.PORT || 8000;
+
+const PORT = 4050 || 8000;
 
 const connectDB = async () => {
   try {
