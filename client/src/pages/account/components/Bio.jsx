@@ -54,11 +54,8 @@ const Bio = () => {
     profilePic: currentUser.profilePic,
   });
 
-  console.log(currentUser.profilePic);
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(file);
     if (file) {
       const fileName = new Date().getTime() + file.name;
       console.log(fileName);
