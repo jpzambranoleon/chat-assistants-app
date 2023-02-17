@@ -12,6 +12,9 @@ require("dotenv").config();
 // Create application with express
 const app = express();
 
+// Connect to database
+MongooseConnection();
+
 // Middlewares
 //app.use(cookieParser());
 app.use(express.json());
@@ -64,8 +67,6 @@ app.get("*", (req, res) => {
   );
 });
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Backend server is running on ${PORT}`);
-  });
+app.listen(PORT, () => {
+  console.log(`Backend server is running on ${PORT}`);
 });
