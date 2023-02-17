@@ -1,4 +1,5 @@
-import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
+import { Delete, PhotoCamera } from "@mui/icons-material";
+import { Avatar, Box, Button, Grid, Stack, Typography } from "@mui/material";
 
 const SetAvatar = ({ file, setFile }) => {
   return (
@@ -8,8 +9,13 @@ const SetAvatar = ({ file, setFile }) => {
           You can personalize your assisant even further. Why not give it a face
           to go with the name?
         </Typography>
-        <Box>
-          <Button variant="contained" size="small" component="label">
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="contained"
+            startIcon={<PhotoCamera />}
+            size="small"
+            component="label"
+          >
             <input
               hidden
               accept="image/*"
@@ -19,14 +25,18 @@ const SetAvatar = ({ file, setFile }) => {
             />
             Upload
           </Button>
-          <Button
-            variant="contained"
-            size="small"
-            onClick={(e) => setFile(null)}
-          >
-            Cancel
-          </Button>
-        </Box>
+          {file === null ? null : (
+            <Button
+              variant="contained"
+              endIcon={<Delete />}
+              size="small"
+              onClick={(e) => setFile(null)}
+              color="error"
+            >
+              Cancel
+            </Button>
+          )}
+        </Stack>
       </Grid>
       <Grid item xs={6}>
         <Box sx={{ display: "flex" }}>
