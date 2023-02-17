@@ -106,7 +106,7 @@ const MuiDrawer = ({ clearChat }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("persist:root");
-    navigate("/");
+    navigate("/login");
     window.location.reload();
   };
 
