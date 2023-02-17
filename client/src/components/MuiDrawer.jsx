@@ -28,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 import DrawerItems from "./DrawerItems";
 import { userRequest } from "../requestMethods";
 import { Link } from "react-router-dom";
+import { persistor } from "../redux/store";
 
 const drawerWidth = 240;
 
@@ -105,9 +106,11 @@ const MuiDrawer = ({ clearChat }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("persist:root");
+    persistor.pause();
+    persistor.flush().then(() => {
+      return persistor.purge();
+    });
     window.location.reload();
-    navigate("/login");
   };
 
   return (
